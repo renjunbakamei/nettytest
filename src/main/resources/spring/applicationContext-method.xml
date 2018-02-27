@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+	default-autowire="byName">
+
+
+	<!--对应的内部方法信息 -->
+	<!--className代表被调用class对应的Bean名称 -->
+	<!--methodName代表被调用class中相应的方法名称名称 -->
+
+	<!--测试方法testMethod，用于第一版测试；class：testService，method：testMethod -->
+	<bean id="testMethod" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>testService</value>
+		</property>
+		<property name="methodName">
+			<value>testMethod</value>
+		</property>
+	</bean>
+
+	<!--testMethodrhdf,用于第二版压测；class：testService，method：rhdfList -->
+	<bean id="testMethodrhdf" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>testService</value>
+		</property>
+		<property name="methodName">
+			<value>rhdfList</value>
+		</property>
+	</bean>
+
+	<!--testMongo,用于测试mongo；class：testService，method：mongoTest -->
+	<bean id="testMongo" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>testService</value>
+		</property>
+		<property name="methodName">
+			<value>mongoTest</value>
+		</property>
+	</bean>
+
+	<!-- 阈值查询 -->
+	<bean id="findLinkThresholds" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkThresholdServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkThresholds</value>
+		</property>
+	</bean>
+
+	<!-- 阈值修改 -->
+	<bean id="updateByIdLinkThreshold" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkThresholdServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>updateByIdLinkThreshold</value>
+		</property>
+	</bean>
+
+	<!-- 根据主键查询，初始化编辑页使用 -->
+	<bean id="findListByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkThresholdServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findListByObj</value>
+		</property>
+	</bean>
+
+	<!--personalInfoAuditJob,个人信息查询；class：personalInfoAuditJobServiceImpl，method：operatorListBymobileNo -->
+	<bean id="operatorListBymobileNo" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>operatorListBymobileNo</value>
+		</property>
+	</bean>
+
+	<!-- 人脸识别信息查询 -->
+	<bean id="findLinkPersonExams" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkPersonExamServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkPersonExams</value>
+		</property>
+	</bean>
+
+	<!-- 黑名单查询 -->
+	<bean id="findLinkBlacklistPersons" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkBlacklistPersons</value>
+		</property>
+	</bean>
+
+	<!-- 黑名单详情查看 -->
+	<bean id="findLinkBlacklistPersonDetail" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkBlacklistPersonDetail</value>
+		</property>
+	</bean>
+
+	<!-- 黑名单删除 -->
+	<bean id="deleteLinkBlacklistPerson" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>deleteLinkBlacklistPerson</value>
+		</property>
+	</bean>
+
+	<!-- 编辑黑名单 -->
+	<bean id="updateByIdLinkBlacklistPerson" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>updateByIdLinkBlacklistPerson</value>
+		</property>
+	</bean>
+	
+	<!-- 根据主键查询，初始化黑名单编辑页 -->
+	<bean id="findBlackListByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findBlackListByObj</value>
+		</property>
+	</bean>
+
+	<bean id="addBlacklistPerson" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPersonServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>addBlacklistPerson</value>
+		</property>
+	</bean>
+	
+	<bean id="addBlacklistPic" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>addBlacklistPic</value>
+		</property>
+	</bean>
+
+
+    <!-- 人脸识别详情查看 -->
+    <bean id="findLinkPersonExamDetail" class="com.jfpay.core.setting.MethodReflectInfo">
+        <property name="className">
+            <value>linkPersonExamServiceImpl</value>
+        </property>
+        <property name="methodName">
+            <value>findLinkPersonExamDetail</value>
+        </property>
+    </bean>
+    <bean id="addLinkPersonExam" class="com.jfpay.core.setting.MethodReflectInfo">
+        <property name="className">
+            <value>linkPersonExamServiceImpl</value>
+        </property>
+        <property name="methodName">
+            <value>addLinkPersonExam</value>
+        </property>
+    </bean>
+        
+    <bean id="findLinkPersonExamByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+        <property name="className">
+            <value>linkPersonExamServiceImpl</value>
+        </property>
+        <property name="methodName">
+            <value>findLinkPersonExamByObj</value>
+        </property>
+    </bean>
+    <bean id="updateByIdLinkPersonExam" class="com.jfpay.core.setting.MethodReflectInfo">
+        <property name="className">
+            <value>linkPersonExamServiceImpl</value>
+        </property>
+        <property name="methodName">
+            <value>updateByIdLinkPersonExam</value>
+        </property>
+    </bean>
+    
+
+
+
+	<!-- 人脸识别信息查询 -->
+	<bean id="findLinkPersonExam" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkPersonExamServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkPersonExam</value>
+		</property>
+	</bean>
+
+	<bean id="findByPKId" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findByPKId</value>
+		</property>
+	</bean>
+	
+	<bean id="updateBlacklistPic" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>updateBlacklistPic</value>
+		</property>
+	</bean>
+	
+	<bean id="getBlacklistPicById" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>getBlacklistPicById</value>
+		</property>
+	</bean>
+	
+	<bean id="getBlacklistPicByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>getBlacklistPicByObj</value>
+		</property>
+	</bean>
+
+	<bean id="findLinkBlacklistPics" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkBlacklistPics</value>
+		</property>
+	</bean>
+
+	<bean id="findLinkBlacklistPicDetail" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkBlacklistPicDetail</value>
+		</property>
+	</bean>
+
+	<bean id="deleteLinkBlacklistPic" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlacklistPicServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>deleteLinkBlacklistPic</value>
+		</property>
+	</bean>
+
+	<!-- 查询用户详情信息 -->
+	<bean id="findPersonalInfoDetail" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findPersonalInfoDetail</value>
+		</property>
+	</bean>
+
+	<!-- 查询操作员列表 -->
+	<bean id="findOperatorList" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findOperatorList</value>
+		</property>
+	</bean>
+
+
+
+	<bean id="findLinkThresholdByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkThresholdServiceImp</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkThresholdByObj</value>
+		</property>
+	</bean>
+
+	<bean id="findPoliceInfoListByCid" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>policeInfoServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findPoliceInfoListByCid</value>
+		</property>
+	</bean>
+
+	<!-- 根据用户id查询用户状态 -->
+	<bean id="findOperatorStatus" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>operatorServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findOperatorStatus</value>
+		</property>
+	</bean>
+
+	<!-- 更改用户状态 -->
+	<bean id="updateUserStatus" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>operatorServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>updateStatusById</value>
+		</property>
+	</bean>
+
+	<!-- 实名认证统计 -->
+	<bean id="findPersonalInfoAuditJobTotal" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>personalInfoAuditJobTotal</value>
+		</property>
+	</bean>
+
+	<!-- 百分比统计 -->
+	<bean id="findCustomerLevel" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>payCustomerServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findCustomerLevel</value>
+		</property>
+	</bean>
+	
+	<bean id="findCountPserson" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>payCustomerServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findCountPserson</value>
+		</property>
+	</bean>
+
+	<bean id="findLinkBlackCompareListByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>linkBlackCompareServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findLinkBlackCompareListByObj</value>
+		</property>
+	</bean>
+	<!--查询审核日志-->
+	<bean id="personalInfoAuditJobLogList" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>personalInfoAuditJobLogList</value>
+		</property>
+	</bean>
+	<!--取得驳回原因-->
+	<bean id="getRejectinfoListByObj" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>rejectInfoService</value>
+		</property>
+		<property name="methodName">
+			<value>getRejectinfoListByObj</value>
+		</property>
+	</bean>
+	<!--查询审核日志详情-->
+	<bean id="findLogPersonalInfoDetail" class="com.jfpay.core.setting.MethodReflectInfo">
+		<property name="className">
+			<value>personalInfoAuditJobServiceImpl</value>
+		</property>
+		<property name="methodName">
+			<value>findLogPersonalInfoDetail</value>
+		</property>
+	</bean>
+
+
+
+</beans>

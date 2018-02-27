@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfpay.dao.read.ILinkBlacklistPicDao">
+<resultMap id="LinkBlacklistPicResult" type="com.jfpay.entity.DO.LinkBlacklistPic">
+   
+        <result property="id"         column="ID"          jdbcType="DECIMAL"/>
+		<result property="mobileNo"   column="MOBILE_NO"   jdbcType="VARCHAR"/>
+		<result property="picPath"    column="PIC_PATH"    jdbcType="VARCHAR"/>
+		<result property="num"        column="NUM"         jdbcType="DECIMAL"/>  
+		<result property="imageId"    column="IMAGE_ID"    jdbcType="VARCHAR"/>
+		<result property="personUuid" column="PERSON_UUID" jdbcType="VARCHAR"/>
+		<result property="dbName"     column="DB_NAME"     jdbcType="VARCHAR"/>
+		<result property="status"     column="STATUS"      jdbcType="VARCHAR"/>
+</resultMap>
+<sql id="LinkBlacklistPic_columns">
+	    <![CDATA[
+        ID ,MOBILE_NO ,PIC_PATH ,NUM,IMAGE_ID,PERSON_UUID,DB_NAME,STATUS
+	    ]]>
+	</sql>
+<sql id="LinkBlacklistPic_columns_as">
+	    <![CDATA[
+        ID as id,
+        MOBILE_NO as mobileNo,
+        PIC_PATH as picPath,
+        NUM as num,
+        IMAGE_ID as imageId,
+        PERSON_UUID as personUuid,
+        DB_NAME as dbName,
+        STATUS as status
+	    ]]>
+	</sql>
+<insert id="addBlacklistPic" parameterType="com.jfpay.entity.DO.LinkBlacklistPic">
+   
+        INSERT INTO jfpay.LINK_BLACKLIST_PIC (
+        	ID ,
+        	MOBILE_NO ,
+        	PIC_PATH ,
+        	NUM,
+        	IMAGE_ID,
+        	PERSON_UUID,
+        	DB_NAME,
+        	STATUS
+        ) VALUES (
+        	jfpay.SEQ_LINK_BLACKIMG_ID.NEXTVAL,
+        	#{mobileNo,jdbcType=VARCHAR},
+        	#{picPath,jdbcType=VARCHAR},
+        	#{num,jdbcType=NUMERIC},
+        	#{imageId,jdbcType=VARCHAR},
+        	#{personUuid,jdbcType=VARCHAR},
+        	#{dbName,jdbcType=VARCHAR},
+        	#{status,jdbcType=VARCHAR}
+        )
+    
+	</insert>
+	<update id="updateBlacklistPic" parameterType="com.jfpay.entity.DO.LinkBlacklistPic">
+		UPDATE jfpay.LINK_BLACKLIST_PIC
+		<set>
+			<if test="mobileNo != null">
+				MOBILE_NO = #{mobileNo} ,
+			</if>
+		</set>
+		WHERE
+		ID = #{id,jdbcType=NUMERIC}
+	</update>
+	<sql id="selectLinkBlacklistPic_where">
+		<where>
+
+			<if test="id != null and id != ''">
+				and ID = #{id}
+			</if>
+
+			<if test="mobileNo != null and mobileNo != ''">
+				and MOBILE_NO = #{mobileNo}
+			</if>
+
+			<if test="picPath != null and picPath != ''">
+				and PIC_PATH = #{picPath}
+			</if>
+
+			<if test="num != null and num != ''">
+				and NUM = #{num}
+			</if>
+
+			<if test="imageId != null and imageId != ''">
+				and IMAGE_ID = #{imageId}
+			</if>
+
+			<if test="personUuid != null and personUuid != ''">
+				and PERSON_UUID = #{personUuid}
+			</if>
+
+			<if test="dbName != null and dbName != ''">
+				and DB_NAME = #{dbName}
+			</if>
+
+			<if test="status != null and status != ''">
+				and STATUS = #{status}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 删除 -->
+	<delete id="deleteLinkBlacklistPic" parameterType="com.jfpay.entity.DO.LinkBlacklistPic">
+   
+        DELETE 
+           FROM jfpay.LINK_BLACKLIST_PIC 
+        WHERE
+           ID = #{id,jdbcType=NUMERIC} 
+  
+	</delete>
+	
+	<!-- 分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页 因为分页查询将传 #offset#,#pageSize#,#lastRows# 
+		三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现 -->
+		
+	<select id="getBlacklistPicById" resultMap="LinkBlacklistPicResult">
+		SELECT
+		<include refid="LinkBlacklistPic_columns" />
+	    <![CDATA[
+	        FROM jfpay.LINK_BLACKLIST_PIC 
+	        WHERE 
+		        ID = #{id,jdbcType=NUMERIC} 
+	    ]]>
+	</select>
+	
+	<select id="findByPKId"  resultMap="LinkBlacklistPicResult">
+		SELECT * FROM  jfpay.LINK_BLACKLIST_PIC
+		WHERE MOBILE_NO = #{mobileNo,jdbcType=VARCHAR} and 	rownum = 1   order by num desc
+
+	</select>
+	
+	<select id="selectLinkBlacklistPics" resultMap="LinkBlacklistPicResult">
+		SELECT
+		<include refid="LinkBlacklistPic_columns" />
+		FROM jfpay.LINK_BLACKLIST_PIC
+		<include refid="selectLinkBlacklistPic_where" />
+		order by id desc
+	</select>
+	
+	<select id="findLinkBlacklistPicDetail" resultMap="LinkBlacklistPicResult">
+		SELECT
+		<include refid="LinkBlacklistPic_columns" />
+	        FROM jfpay.LINK_BLACKLIST_PIC	  
+	        WHERE
+		        id = #{id,jdbcType=NUMERIC}
+	    
+	</select>
+	<!-- 查询/编辑 -->
+	<select id="getBlacklistPicByObj" resultMap="LinkBlacklistPicResult">
+		SELECT
+		<include refid="LinkBlacklistPic_columns_as" />
+		FROM jfpay.LINK_BLACKLIST_PIC
+		WHERE
+		ID = #{id,jdbcType=NUMERIC}
+	</select>
+
+
+
+	
+</mapper>

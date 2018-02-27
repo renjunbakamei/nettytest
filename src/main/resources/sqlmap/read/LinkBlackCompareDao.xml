@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.ILinkBlackCompareDao">
+	<resultMap id="LinkBlackCompareResult" type="com.jfpay.entity.DO.LinkBlackCompare">
+		<result property="nid" column="NID" />
+		<result property="status" column="STATUS" />
+		<result property="respImageId" column="RESP_IMAGE_ID" />
+		<result property="respScore" column="RESP_SCORE" />
+		<result property="respPersonUuid" column="RESP_PERSON_UUID" />
+		<result property="examId" column="EXAM_ID" />
+		<result property="picPath" column="PIC_PATH" />
+	</resultMap>
+
+	<select id="findListByObj" resultMap="LinkBlackCompareResult">
+		select RESP_SCORE as respScore ,p.pic_path as picPath from jfpay.LINK_BLACK_COMPARE c,jfpay.link_blacklist_pic p 
+		where c.exam_id = #{examId} and c.resp_image_id = p.image_id and p.person_uuid = c.resp_person_uuid 
+		and p.status = 'OK' and rownum  &lt;=5 order by c.resp_score desc 
+	</select>
+</mapper>
+

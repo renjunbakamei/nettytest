@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfpay.dao.write.RhdfListWriteDao">
+  <resultMap id="BaseResultMap" type="com.jfpay.entity.DO.RhdfListDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BANKNO" jdbcType="VARCHAR" property="bankno" />
+    <result column="BANKNAME" jdbcType="VARCHAR" property="bankname" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="INCHANNEL" jdbcType="VARCHAR" property="inchannel" />
+    <result column="FUNDRESOURCES" jdbcType="VARCHAR" property="fundresources" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="TRADEDELAY" jdbcType="VARCHAR" property="tradedelay" />
+    <result column="TRADECODE" jdbcType="VARCHAR" property="tradecode" />
+    <result column="ORIGDATE" jdbcType="VARCHAR" property="origdate" />
+    <result column="ORIGTIME" jdbcType="VARCHAR" property="origtime" />
+    <result column="ORIGLOGNO" jdbcType="VARCHAR" property="origlogno" />
+    <result column="INDATE" jdbcType="VARCHAR" property="indate" />
+    <result column="INTIME" jdbcType="VARCHAR" property="intime" />
+    <result column="OPER" jdbcType="VARCHAR" property="oper" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CHECKDATE1" jdbcType="VARCHAR" property="checkdate1" />
+    <result column="CHECKTIME1" jdbcType="VARCHAR" property="checktime1" />
+    <result column="CHECKER1" jdbcType="VARCHAR" property="checker1" />
+    <result column="CHECKDATE2" jdbcType="VARCHAR" property="checkdate2" />
+    <result column="CHECKTIME2" jdbcType="VARCHAR" property="checktime2" />
+    <result column="CHECKER2" jdbcType="VARCHAR" property="checker2" />
+    <result column="BATCHNO" jdbcType="VARCHAR" property="batchno" />
+    <result column="BATCHSEQ" jdbcType="VARCHAR" property="batchseq" />
+    <result column="RETDATE" jdbcType="VARCHAR" property="retdate" />
+    <result column="RETTIME" jdbcType="VARCHAR" property="rettime" />
+    <result column="RETCODE" jdbcType="VARCHAR" property="retcode" />
+    <result column="RETMSG" jdbcType="VARCHAR" property="retmsg" />
+    <result column="OUTCHANNEL" jdbcType="VARCHAR" property="outchannel" />
+    <result column="MAC" jdbcType="VARCHAR" property="mac" />
+  </resultMap>
+  
+</mapper>

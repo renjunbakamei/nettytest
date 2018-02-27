@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+       default-autowire="byName">
+
+
+
+    <!--
+	 该 BeanPostProcessor 将自动对标注@Autowired 的 Bean 进行注入
+	-->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="thriftRegistryInfo" class="com.jfpay.core.setting.ThriftRegistryInfo">
+        <property name="port" value="${thrift_port}"/>
+        <property name="serviceList">
+            <list>
+                <value>CertifacationService</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

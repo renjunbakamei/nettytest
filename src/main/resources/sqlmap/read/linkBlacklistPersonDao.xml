@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfpay.dao.read.ILinkBlacklistPersonDao">
+  <resultMap id="LinkBlacklistPersonResult" type="com.jfpay.entity.DO.LinkBlacklistPerson">
+   
+        <result property="id"          column="ID"          jdbcType="DECIMAL"/>
+		<result property="mobileNo"    column="MOBILE_NO"   jdbcType="VARCHAR"/>
+		<result property="name"        column="NAME"        jdbcType="VARCHAR"/>
+		<result property="cardNo"      column="CARD_NO"     jdbcType="VARCHAR"/>
+		<result property="createUser"  column="CREATE_USER" jdbcType="VARCHAR"/>
+		<result property="createDate"  column="CREATE_DATE" jdbcType="VARCHAR"/>
+		<result property="status"      column="STATUS"      jdbcType="VARCHAR"/>
+		<result property="backup"      column="BACKUP"      jdbcType="VARCHAR"/>
+		<result property="backup1"     column="BACKUP1"     jdbcType="VARCHAR"/>
+		<result property="backup2"     column="BACKUP2"     jdbcType="VARCHAR"/>
+		<result property="backup3"     column="BACKUP3"     jdbcType="VARCHAR"/>
+		<result property="picPath"     column="PIC_PATH"    jdbcType="VARCHAR"/>
+		
+		
+		</resultMap>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="LinkBlacklistPerson_columns">
+	    <![CDATA[
+        ID ,
+        MOBILE_NO ,
+        NAME ,
+        CARD_NO ,
+        CREATE_USER ,
+        CREATE_DATE ,
+        STATUS ,
+        BACKUP ,
+        BACKUP1 ,
+        BACKUP2 ,
+        BACKUP3 
+	    ]]>
+	</sql>
+	
+	<sql id="LinkBlacklistPerson_columns_as">
+	    <![CDATA[
+        ID as id,
+        MOBILE_NO as mobileNo,
+        NAME as name,
+        CARD_NO as cardNo,
+        CREATE_USER as createUser,
+        CREATE_DATE as createDate,
+        STATUS as status,
+        BACKUP as backup,
+        BACKUP1 as backup1,
+        BACKUP2 as backup2,
+        BACKUP3 as backup3
+	    ]]>
+	</sql>
+   
+	
+	<sql id="selectLinkBlacklistPerson_where">
+		<where>
+
+			<if test="id != null and id != ''">
+				and ID = #{id}
+			</if>
+
+			<if test="mobileNo != null and mobileNo != ''">
+				and MOBILE_NO = #{mobileNo}
+			</if>
+
+			<if test="name != null and name != ''">
+				and NAME = #{name}
+			</if>
+
+			<if test="cardNo != null and cardNo != ''">
+				and CARD_NO = #{cardNo}
+			</if>
+
+			<if test="createUser != null and createUser != ''">
+				and CREATE_USER = #{createUser}
+			</if>
+
+			<if test="createDate != null and createDate != ''">
+				and CREATE_DATE = #{createDate}
+			</if>
+
+			<if test="status != null and status != ''">
+				and STATUS = #{status}
+			</if>
+
+			<if test="backup != null and backup != ''">
+				and BACKUP = #{backup}
+			</if>
+
+			<if test="backup1 != null and backup1 != ''">
+				and BACKUP1 = #{backup1}
+			</if>
+
+			<if test="backup2 != null and backup2 != ''">
+				and BACKUP2 = #{backup2}
+			</if>
+
+			<if test="backup3 != null and backup3 != ''">
+				and BACKUP3 = #{backup3}
+			</if>
+		</where>
+	</sql>
+	<!-- 删除 -->
+	<delete id="deleteLinkBlacklistPerson" parameterType="com.jfpay.entity.DO.LinkBlacklistPerson">
+   
+        DELETE 
+           FROM jfpay.LINK_BLACKLIST_PERSON 
+        WHERE
+           ID = #{id,jdbcType=NUMERIC} 
+  
+	</delete>
+   <!-- 修改/编辑 -->
+   <update id="updateByIdLinkBlacklistPerson" parameterType="com.jfpay.entity.DO.LinkBlacklistPerson">
+		UPDATE jfpay.LINK_BLACKLIST_PERSON
+		
+		<set>
+			<if test="mobileNo != null">
+				MOBILE_NO = #{mobileNo} ,
+			</if>
+			<if test="name != null">
+				NAME = #{name} ,
+			</if>
+			<if test="cardNo != null">
+				CARD_NO = #{cardNo} ,
+			</if>
+
+		</set>
+		WHERE
+		ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 添加黑名单 -->
+	<insert id="addBlacklistPerson" parameterType="com.jfpay.entity.DO.LinkBlacklistPerson">
+    
+        INSERT INTO jfpay.LINK_BLACKLIST_PERSON (
+        	ID ,
+        	MOBILE_NO ,
+        	NAME ,
+        	CARD_NO ,
+        	CREATE_USER ,
+        	CREATE_DATE ,
+        	STATUS ,
+        	BACKUP ,
+        	BACKUP1 ,
+        	BACKUP2 ,
+        	BACKUP3 
+        ) VALUES (
+        	jfpay.SEQ_LINK_BLACKPERSON_ID.NEXTVAL,
+        	#{mobileNo,jdbcType=VARCHAR},
+        	#{name,jdbcType=VARCHAR},
+        	#{cardNo,jdbcType=VARCHAR},
+        	#{createUser,jdbcType=VARCHAR},
+        	to_char(sysdate,'yyyymmddhh24miss'),
+        	'1',
+        	#{backup,jdbcType=VARCHAR},
+        	#{backup1,jdbcType=VARCHAR},
+        	#{backup2,jdbcType=VARCHAR},
+        	#{backup3,jdbcType=VARCHAR}
+        )
+  
+	</insert>
+	<!-- 分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页 因为分页查询将传 #offset#,#pageSize#,#lastRows# 
+		三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现 -->
+	<select id="selectLinkBlacklistPersons" resultMap="LinkBlacklistPersonResult">
+		SELECT
+		<include refid="LinkBlacklistPerson_columns" />
+		FROM jfpay.LINK_BLACKLIST_PERSON
+		<include refid="selectLinkBlacklistPerson_where" />
+		order by CREATE_DATE desc
+	</select>
+	
+	<select id="findLinkBlacklistPersonDetail" resultMap="LinkBlacklistPersonResult">
+   SELECT
+		lbp.PIC_PATH picPath,
+		lbp.MOBILE_NO mobileNo2,
+        lblp.ID as id,
+        lblp.MOBILE_NO as mobileNo,
+        lblp.NAME as name,
+        lblp.CARD_NO as cardNo,
+        lblp.CREATE_USER as createUser,
+        lblp.CREATE_DATE as createDate,
+        lblp.STATUS as status,
+        lblp.BACKUP as backup,
+        lblp.BACKUP1 as backup1,
+        lblp.BACKUP2 as backup2,
+        lblp.BACKUP3 as backup3
+	        FROM jfpay.LINK_BLACKLIST_PERSON lblp,jfpay.LINK_BLACKLIST_PIC lbp 
+	        WHERE
+       lblp.ID = #{id} 
+       AND lblp.MOBILE_NO=lbp.MOBILE_NO
+        		
+</select>
+	<select id="findLinkBlacklistPersonDetail2" resultMap="LinkBlacklistPersonResult">
+   SELECT
+		
+        lblp.ID as id,
+        lblp.MOBILE_NO as mobileNo,
+        lblp.NAME as name,
+        lblp.CARD_NO as cardNo,
+        lblp.CREATE_USER as createUser,
+        lblp.CREATE_DATE as createDate,
+        lblp.STATUS as status,
+        lblp.BACKUP as backup,
+        lblp.BACKUP1 as backup1,
+        lblp.BACKUP2 as backup2,
+        lblp.BACKUP3 as backup3
+	        FROM jfpay.LINK_BLACKLIST_PERSON lblp
+	        WHERE
+       lblp.ID = #{id} 
+     
+        		
+</select>
+	<!-- 查询/编辑 -->
+	<select id="findBlackListByObj" resultMap="LinkBlacklistPersonResult">
+		SELECT
+		<include refid="LinkBlacklistPerson_columns_as" />
+		FROM jfpay.LINK_BLACKLIST_PERSON
+		WHERE
+		ID = #{id}
+	</select>
+  </mapper>

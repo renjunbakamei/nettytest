@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.IPoliceInfoDao">
+	<resultMap id="PoliceInfoResult" type="com.jfpay.entity.DO.PoliceInfo">
+		<result property="id" column="ID" />
+		<result property="mobile" column="MOBILE" />
+		<result property="customerName" column="CUSTOMERNAME" />
+		<result property="customerPid" column="CUSTOMERPID" />
+		<result property="policeResult" column="POLICERESULT" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="updateTime" column="UPDATETIME" />
+	</resultMap>
+
+	<select id="findPoliceInfoListByCid" parameterType="String" resultMap="PoliceInfoResult">
+		SELECT
+		*
+		FROM jfpay.paycustomer_police_info p where 1=1 and p.customerpid=#{cid}
+
+	</select>
+</mapper>
+

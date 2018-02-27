@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.IPayCustomerDao">
+	<resultMap id="PayCustomerResult" type="com.jfpay.entity.DO.PayCustomer">
+		<result property="timestamp" column="TIMESTAMP" />
+		<result property="customerid" column="CUSTOMERID" />
+		<result property="username" column="USERNAME" />
+		<result property="customertype" column="CUSTOMERTYPE" />
+		<result property="customername" column="CUSTOMERNAME" />
+		<result property="customerpidtype" column="CUSTOMERPIDTYPE" />
+		<result property="customerpid" column="CUSTOMERPID" />
+		<result property="customerregdate" column="CUSTOMERREGDATE" />
+		<result property="branchid" column="BRANCHID" />
+		<result property="attention" column="ATTENTION" />
+		<result property="customertag" column="CUSTOMERTAG" />
+		<result property="viplevel" column="VIPLEVEL" />
+		<result property="lastchangedate" column="LASTCHANGEDATE" />
+		<result property="memo" column="MEMO" />
+		<result property="email" column="EMAIL" />
+		<result property="precustomertag" column="PRECUSTOMERTAG" />
+		<result property="blank1" column="BLANK1" />
+		<result property="blank2" column="BLANK2" />
+		<result property="blank3" column="BLANK3" />
+		<result property="customerCount" column="customerCount" />
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
+	</resultMap>
+		<!-- 用于select查询公用抽取的列 -->
+	<sql id="PayCustomer_columns">
+	    <![CDATA[
+        TIMESTAMP ,CUSTOMERID ,USERNAME ,CUSTOMERTYPE ,CUSTOMERNAME ,CUSTOMERPIDTYPE ,CUSTOMERPID ,CUSTOMERREGDATE ,BRANCHID ,ATTENTION ,CUSTOMERTAG ,VIPLEVEL ,LASTCHANGEDATE ,MEMO ,EMAIL ,PRECUSTOMERTAG ,BLANK1 ,BLANK2 ,BLANK3 
+	    ]]>
+	</sql>
+	
+	<sql id="PayCustomer_columns_as">
+	    <![CDATA[
+        TIMESTAMP as timestamp,CUSTOMERID as customerid,USERNAME as username,CUSTOMERTYPE as customertype,CUSTOMERNAME as customername,CUSTOMERPIDTYPE as customerpidtype,CUSTOMERPID as customerpid,CUSTOMERREGDATE as customerregdate,BRANCHID as branchid,ATTENTION as attention,CUSTOMERTAG as customertag,VIPLEVEL as viplevel,LASTCHANGEDATE as lastchangedate,MEMO as memo,EMAIL as email,PRECUSTOMERTAG as precustomertag,BLANK1 as blank1,BLANK2 as blank2,BLANK3 as blank3
+	    ]]>
+	</sql>
+	
+	
+	
+	<select id="selectAllPayCustomer" resultMap="PayCustomerResult">
+		SELECT * FROM
+		jfpay.PAYCUSTOMER
+	</select>
+
+	<!--根据手机号，查询客户审核次数 -->
+	<select id="findCountPserson" resultType="long">
+		 select count(*) from jfpay.prep_personalinfo_history where mobileno = #{mobile} 
+	</select>
+	
+	<!--根据客户等级，查询 客户等级百分比-->
+	<select id="findCustomerLevel" resultMap="PayCustomerResult">
+		select count(p.viplevel) customerCount, substr(p.viplevel,4,6) viplevel
+		  from jfpay.paycustomer p
+		 where p.customerid in (select pt.customerid
+		                          from jfpay.prep_personalinfo pt
+		                         where pt.createdate &gt;= #{startDate}
+		                           and pt.createdate &lt;= #{endDate} and pt.auditflag ='3' )
+		 group by p.viplevel ORDER BY substr(p.viplevel,4,6)
+	</select>
+	<!--根据创建时间，状态，查询客户审核条数-->
+	<select id="getCustomerCount" resultType="long">
+		select count(*) customerCount
+		from jfpay.prep_personalinfo pt
+		where pt.createdate &gt;= #{startDate}
+		and pt.createdate &lt;= #{endDate} and pt.auditflag ='3'
+	</select>
+	
+</mapper>
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.IRejectinfoDao">
+	<resultMap id="RejectinfoResult" type="com.jfpay.entity.vo.RejectinfoVO">
+		<result property="rejectCode" column="REJECT_CODE" />
+		<result property="rejectReason" column="REJECT_REASON" />
+		<result property="status" column="STATUS" />
+		<result property="reType" column="RE_TYPE" />
+		<result property="id" column="ID" />
+	</resultMap>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Rejectinfo_columns">
+		<![CDATA[
+        REJECT_CODE ,REJECT_REASON ,STATUS ,RE_TYPE ,ID
+	    ]]>
+	</sql>
+
+	<sql id="selectRejectinfo_where">
+		<where>
+
+			<if test="rejectCode != null and rejectCode != ''">
+				and REJECT_CODE = #{rejectCode}
+			</if>
+
+			<if test="rejectReason != null and rejectReason != ''">
+				and REJECT_REASON = #{rejectReason}
+			</if>
+
+			<if test="status != null and status != ''">
+				and STATUS = #{status}
+			</if>
+
+			<if test="reType != null and reType != ''">
+				and RE_TYPE = #{reType}
+			</if>
+
+			<if test="id != null and id != ''">
+				and ID = #{id}
+			</if>
+		</where>
+	</sql>
+
+	<select id="findRejectInfoAll" resultMap="RejectinfoResult">
+		SELECT * FROM
+		REJECTINFO  f where f.re_type =1
+	</select>
+
+	<select id="findListByObj" resultMap="RejectinfoResult">
+		SELECT
+		<include refid="Rejectinfo_columns" />
+		FROM jfpay.REJECTINFO
+		<include refid="selectRejectinfo_where" />
+	</select>
+
+</mapper>
+

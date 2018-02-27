@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.write.IPrepPersonalinfoDaoWrite">
+	<resultMap id="prepPersonalinfoResult" type="com.jfpay.entity.DO.PrepPersonalinfo">
+	
+	
+		<result property="timestamp" column="TIMESTAMP" />
+		<result property="customerid" column="CUSTOMERID" />
+		<result property="mobileno" column="MOBILENO" />
+		<result property="auditflag" column="AUDITFLAG" />
+		<result property="createdate" column="CREATEDATE" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="remark" column="REMARK" />
+		<result property="pidimgpath" column="PIDIMGPATH" />
+		<result property="pidantiimgpath" column="PIDANTIIMGPATH" />
+		<result property="picpath" column="PICPATH" />
+		<result property="mugshotpath" column="MUGSHOTPATH" />
+		<result property="rejectcode" column="REJECTCODE" />
+		<result property="rejectreason" column="REJECTREASON" />
+		<result property="examdate" column="EXAMDATE" />
+		<result property="examuser" column="EXAMUSER" />
+		<result property="pidValidityDate" column="PID_VALIDITY_DATE" />
+		<result property="guarantorPic" column="GUARANTOR_PIC" />
+		<result property="imgType" column="IMG_TYPE" />
+		<result property="customerName" column="customerName" />
+		<result property="customerPid" column="customerPid" />
+		<result property="blank3" column="blank3" />
+		<result property="auditChannel" column="AUDIT_CHANNEL" />
+		<result property="viplevel" column="viplevel" />
+		<result property="userIp" column="IP" />
+		<result property="audittype" column="audit_type" />
+		<result property="groupimgpath" column="GROUPIMGPATH" />
+		<result property="usernamehidden" column="USERNAME_HIDDEN" />
+		<result property="customerpidhidden" column="CUSTOMERPID_HIDDEN" />
+	</resultMap>
+	
+	<!--查询用户基本信息-->
+	<update id="updateById_prepPersonalinfo" parameterType="com.jfpay.entity.DO.PrepPersonalinfo">
+		UPDATE PREP_PERSONALINFO
+		<set>
+			<if test="timestamp != null">
+				TIMESTAMP = #{timestamp} ,
+			</if>
+			<if test="mobileno != null">
+				MOBILENO = #{mobileno} ,
+			</if>
+			<if test="auditflag != null">
+				AUDITFLAG = #{auditflag} ,
+			</if>
+			<if test="createdate != null">
+				CREATEDATE = #{createdate} ,
+			</if>
+			<if test="createtime != null">
+				CREATETIME = #{createtime} ,
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark} ,
+			</if>
+			<if test="pidimgpath != null">
+				PIDIMGPATH = #{pidimgpath} ,
+			</if>
+			<if test="pidantiimgpath != null">
+				PIDANTIIMGPATH = #{pidantiimgpath} ,
+			</if>
+			<if test="picpath != null">
+				PICPATH = #{picpath} ,
+			</if>
+			<if test="mugshotpath != null">
+				MUGSHOTPATH = #{mugshotpath} ,
+			</if>
+			<if test="rejectcode != null">
+				REJECTCODE = #{rejectcode} ,
+			</if>
+			<if test="rejectreason != null">
+				REJECTREASON = #{rejectreason} ,
+			</if>
+			<if test="examdate != null">
+				EXAMDATE = #{examdate} ,
+			</if>
+			<if test="examuser != null">
+				EXAMUSER = #{examuser} ,
+			</if>
+			<if test="pidValidityDate != null">
+				PID_VALIDITY_DATE = #{pidValidityDate} ,
+			</if>
+			<if test="guarantorPic != null">
+				GUARANTOR_PIC = #{guarantorPic} ,
+			</if>
+			<if test="imgType != null">
+				IMG_TYPE = #{imgType} ,
+			</if>
+		</set>
+		WHERE
+		CUSTOMERID = #{customerid}
+	</update>
+</mapper>

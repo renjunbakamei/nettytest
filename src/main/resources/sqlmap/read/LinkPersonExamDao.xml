@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.ILinkPersonExamDao">
+	<resultMap id="LinkPersonExamResult" type="com.jfpay.entity.DO.LinkPersonExam">
+		<result property="id" column="ID" />
+		<result property="mobileNo" column="MOBILE_NO" />
+		<result property="confidence" column="CONFIDENCE" />
+		<result property="thresholdId" column="THRESHOLD_ID" />
+		<result property="examStatus" column="EXAM_STATUS" />
+		<result property="examTime" column="EXAM_TIME" />
+		<result property="examUser" column="EXAM_USER" />
+		<result property="thresholdRemark" column="threshold_remark" />
+		<result property="linkStatus" column="link_status" />
+		<result property="ocrResult" column="ocr_result" />
+		<result property="ocrReason" column="ocr_reason" />
+		<result property="ocrStatus" column="ocr_status" />
+		<result property="blackStatus" column="black_status" />
+		<result property="isBlack" column="isblack" />
+	</resultMap>
+	
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="LinkPersonExam_columns">
+	    <![CDATA[
+        ID ,MOBILE_NO ,CONFIDENCE ,THRESHOLD_ID ,EXAM_STATUS ,EXAM_TIME ,EXAM_USER,
+        link_status,threshold_remark,ocr_result,ocr_reason,ocr_status,black_status,isblack 
+	    ]]>
+	</sql>
+	
+	
+	<sql id="selectLinkPersonExam_where">
+		<where>
+
+			<if test="id != null and id != ''">
+				and ID = #{id}
+			</if>
+
+			<if test="mobileNo != null and mobileNo != ''">
+				and MOBILE_NO = #{mobileNo}
+			</if>
+
+			<if test="confidence != null and confidence != ''">
+				and CONFIDENCE = #{confidence}
+			</if>
+
+			<if test="thresholdId != null and thresholdId != ''">
+				and THRESHOLD_ID = #{thresholdId}
+			</if>
+
+			<if test="examStatus != null and examStatus != ''">
+				and EXAM_STATUS = #{examStatus}
+			</if>
+
+			<if test="examTime != null and examTime != ''">
+				and EXAM_TIME = #{examTime}
+			</if>
+			<if test="examStartDate != null and examStartDate != ''">
+				and EXAM_TIME &gt;= #{examStartDate}||000000
+			</if>
+			<if test="examEndDate != null and examEndDate != ''">
+				and EXAM_TIME &lt;= #{examEndDate}||595959
+			</if>
+
+			<if test="examUser != null and examUser != ''">
+				and EXAM_USER = #{examUser}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 添加 -->
+	<insert id="addLinkPersonExam" parameterType="com.jfpay.entity.DO.LinkPersonExam">
+    INSERT INTO jfpay.LINK_PERSON_EXAM (
+        	ID ,
+        	MOBILE_NO ,
+        	CONFIDENCE ,
+        	THRESHOLD_ID ,
+        	EXAM_STATUS ,
+        	EXAM_TIME ,
+        	EXAM_USER ,
+        	LINK_STATUS,
+        	THRESHOLD_REMARK
+        ) VALUES (
+        jfpay.seq_link_exam_id.nextval,
+        	#{mobileNo,jdbcType=VARCHAR},
+        	#{confidence,jdbcType=VARCHAR},
+        	#{thresholdId,jdbcType=VARCHAR},
+        	#{examStatus,jdbcType=VARCHAR},
+        	to_char(sysdate,'yyyymmddhh24miss'),
+        	#{examUser,jdbcType=VARCHAR},
+        	#{linkStatus,jdbcType=VARCHAR},
+        	#{thresholdRemark,jdbcType=VARCHAR}
+        )
+  
+	</insert>
+	<!-- 更新 -->
+	<update id="updateByIdLinkPersonExam" parameterType="com.jfpay.entity.DO.LinkPersonExam">
+		UPDATE jfpay.LINK_PERSON_EXAM
+		<set>
+			<if test="mobileNo != null">
+				MOBILE_NO = #{mobileNo} ,
+			</if>
+			<if test="confidence != null">
+				CONFIDENCE = #{confidence} ,
+			</if>
+			<if test="thresholdId != null">
+				THRESHOLD_ID = #{thresholdId} ,
+			</if>
+			<if test="thresholdRemark != null">
+				threshold_Remark = #{thresholdRemark},
+			</if>
+			<if test="examStatus != null">
+				EXAM_STATUS = #{examStatus} ,
+			</if>
+			<if test="examUser != null">
+				EXAM_USER = #{examUser} ,
+			</if>
+			EXAM_TIME = to_char(sysdate,'yyyymmddhh24miss')
+
+		</set>
+		WHERE
+		ID = #{id,jdbcType=NUMERIC}
+	</update>
+	
+	
+		<!-- 分页查询已经使用Dialect进行分页,也可以不使用Dialect直接编写分页 因为分页查询将传 #offset#,#pageSize#,#lastRows# 
+		三个参数,不同的数据库可以根于此三个参数属性应用不同的分页实现 -->
+	<select id="selectLinkPersonExams" resultMap="LinkPersonExamResult">
+		SELECT
+		<include refid="LinkPersonExam_columns" />
+		FROM jfpay.LINK_PERSON_EXAM
+		<include refid="selectLinkPersonExam_where" />
+		order by id desc
+	</select>
+    <select id="findLinkPersonExamDetail" resultMap="LinkPersonExamResult">
+		SELECT
+		<include refid="LinkPersonExam_columns" />
+	        FROM jfpay.LINK_PERSON_EXAM	  
+	        WHERE
+		        id = #{id}
+	    
+	</select>
+	<select id="findByMobileNo" resultMap="LinkPersonExamResult">
+		SELECT
+		<include refid="LinkPersonExam_columns" />
+	    <![CDATA[
+	        FROM jfpay.LINK_PERSON_EXAM 
+	        WHERE 
+		        mobile_no = #{mobileNo} and exam_status is null ORDER BY create_date desc
+	    ]]>
+	</select>
+	
+	
+	<select id="findLinkPersonExamByObj" resultMap="LinkPersonExamResult">
+		SELECT
+		<include refid="LinkPersonExam_columns" />
+		FROM jfpay.LINK_PERSON_EXAM
+		<include refid="selectLinkPersonExam_where" />
+		order by id desc
+	</select>
+
+</mapper>
+

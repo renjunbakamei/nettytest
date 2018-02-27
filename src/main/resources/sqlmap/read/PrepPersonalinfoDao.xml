@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.read.IPrepPersonalinfoDao">
+	<resultMap id="prepPersonalinfoResult" type="com.jfpay.entity.DO.PrepPersonalinfo">
+	
+	
+		<result property="timestamp" column="TIMESTAMP" />
+		<result property="customerid" column="CUSTOMERID" />
+		<result property="mobileno" column="MOBILENO" />
+		<result property="auditflag" column="AUDITFLAG" />
+		<result property="createdate" column="CREATEDATE" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="remark" column="REMARK" />
+		<result property="pidimgpath" column="PIDIMGPATH" />
+		<result property="pidantiimgpath" column="PIDANTIIMGPATH" />
+		<result property="picpath" column="PICPATH" />
+		<result property="mugshotpath" column="MUGSHOTPATH" />
+		<result property="rejectcode" column="REJECTCODE" />
+		<result property="rejectreason" column="REJECTREASON" />
+		<result property="examdate" column="EXAMDATE" />
+		<result property="examuser" column="EXAMUSER" />
+		<result property="pidValidityDate" column="PID_VALIDITY_DATE" />
+		<result property="guarantorPic" column="GUARANTOR_PIC" />
+		<result property="imgType" column="IMG_TYPE" />
+		<result property="customerName" column="customerName" />
+		<result property="customerPid" column="customerPid" />
+		<result property="blank3" column="blank3" />
+		<result property="auditChannel" column="AUDIT_CHANNEL" />
+		<result property="viplevel" column="viplevel" />
+		<result property="userIp" column="IP" />
+		<result property="audittype" column="audit_type" />
+		<result property="groupimgpath" column="GROUPIMGPATH" />
+		<result property="usernamehidden" column="USERNAME_HIDDEN" />
+		<result property="customerpidhidden" column="CUSTOMERPID_HIDDEN" />
+	</resultMap>
+	
+	<!--查询用户基本信息-->
+	<select id="findPersonList" resultMap="prepPersonalinfoResult">
+		SELECT p.*,t.*
+         FROM PREP_PERSONALINFO p ,paycustomer t 
+          where p.customerid = t.customerid and
+          p.mobileno = #{mobileno}
+          <if test="username != null">
+          	and t.customername = #{username}
+          </if>
+          <if test="customerPid != null">
+          	and t.customerpid = #{customerPid}
+          </if>
+	</select>
+	
+	<!--根据客户ID，查询客户图片的信息 -->
+	<select id="findPrepPersonalById" resultMap="prepPersonalinfoResult">
+		select f.*, p.customername as customerName,p.USERNAME_HIDDEN,p.CUSTOMERPID_HIDDEN, p.customerpid as customerPid, p.blank3 as blank3,p.viplevel as viplevel
+		from prep_personalinfo f, paycustomer p
+		where f.customerid = p.customerid
+		and f.CUSTOMERID = #{customerid}
+	</select>
+</mapper>

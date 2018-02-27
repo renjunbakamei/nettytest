@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+
+
+<mapper namespace="com.jfpay.dao.write.IPayCustomerWriteDao">
+	<resultMap id="PayCustomerResult" type="com.jfpay.entity.DO.PayCustomer">
+		<result property="timestamp" column="TIMESTAMP" />
+		<result property="customerid" column="CUSTOMERID" />
+		<result property="username" column="USERNAME" />
+		<result property="customertype" column="CUSTOMERTYPE" />
+		<result property="customername" column="CUSTOMERNAME" />
+		<result property="customerpidtype" column="CUSTOMERPIDTYPE" />
+		<result property="customerpid" column="CUSTOMERPID" />
+		<result property="customerregdate" column="CUSTOMERREGDATE" />
+		<result property="branchid" column="BRANCHID" />
+		<result property="attention" column="ATTENTION" />
+		<result property="customertag" column="CUSTOMERTAG" />
+		<result property="viplevel" column="VIPLEVEL" />
+		<result property="lastchangedate" column="LASTCHANGEDATE" />
+		<result property="memo" column="MEMO" />
+		<result property="email" column="EMAIL" />
+		<result property="precustomertag" column="PRECUSTOMERTAG" />
+		<result property="blank1" column="BLANK1" />
+		<result property="blank2" column="BLANK2" />
+		<result property="blank3" column="BLANK3" />
+		<result property="changeTime" column="changeTime" />
+		<result property="customerCount" column="customerCount" />
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
+	</resultMap>
+
+	<update id="updateById_payCustomer" parameterType="com.jfpay.entity.DO.PayCustomer">
+		UPDATE PAYCUSTOMER
+		<set>
+			<if test="timestamp != null">
+				TIMESTAMP = #{timestamp} ,
+			</if>
+			<if test="username != null">
+				USERNAME = #{username} ,
+			</if>
+			<if test="customertype != null">
+				CUSTOMERTYPE = #{customertype} ,
+			</if>
+			<if test="customername != null">
+				CUSTOMERNAME = #{customername} ,
+			</if>
+			<if test="customerpidtype != null">
+				CUSTOMERPIDTYPE = #{customerpidtype} ,
+			</if>
+			<if test="customerpid != null">
+				CUSTOMERPID = #{customerpid} ,
+			</if>
+			<if test="customerregdate != null">
+				CUSTOMERREGDATE = #{customerregdate} ,
+			</if>
+			<if test="branchid != null">
+				BRANCHID = #{branchid} ,
+			</if>
+			<if test="attention != null">
+				ATTENTION = #{attention} ,
+			</if>
+			<if test="customertag != null">
+				CUSTOMERTAG = #{customertag} ,
+			</if>
+			<if test="viplevel != null">
+				VIPLEVEL = #{viplevel} ,
+			</if>
+			<if test="lastchangedate != null">
+				LASTCHANGEDATE = #{lastchangedate} ,
+			</if>
+			<if test="memo != null">
+				MEMO = #{memo} ,
+			</if>
+			<if test="email != null">
+				EMAIL = #{email} ,
+			</if>
+			<if test="precustomertag != null">
+				PRECUSTOMERTAG = #{precustomertag} ,
+			</if>
+			<if test="blank1 != null">
+				BLANK1 = #{blank1} ,
+			</if>
+			<if test="blank2 != null">
+				BLANK2 = #{blank2} ,
+			</if>
+			<if test="blank3 != null">
+				BLANK3 = #{blank3} ,
+			</if>
+			<if test="changeTime != null">
+				changeTime = #{changeTime}
+			</if>
+
+		</set>
+		WHERE
+		CUSTOMERID = #{customerid}
+	</update>
+	
+</mapper>
+

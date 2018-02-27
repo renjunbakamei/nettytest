@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfpay.dao.read.RhdfListReadDao">
+  <resultMap id="BaseResultMap" type="com.jfpay.entity.DO.RhdfListDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BANKNO" jdbcType="VARCHAR" property="bankno" />
+    <result column="BANKNAME" jdbcType="VARCHAR" property="bankname" />
+    <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="AMOUNT" jdbcType="DECIMAL" property="amount" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="INCHANNEL" jdbcType="VARCHAR" property="inchannel" />
+    <result column="FUNDRESOURCES" jdbcType="VARCHAR" property="fundresources" />
+    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+    <result column="TRADEDELAY" jdbcType="VARCHAR" property="tradedelay" />
+    <result column="TRADECODE" jdbcType="VARCHAR" property="tradecode" />
+    <result column="ORIGDATE" jdbcType="VARCHAR" property="origdate" />
+    <result column="ORIGTIME" jdbcType="VARCHAR" property="origtime" />
+    <result column="ORIGLOGNO" jdbcType="VARCHAR" property="origlogno" />
+    <result column="INDATE" jdbcType="VARCHAR" property="indate" />
+    <result column="INTIME" jdbcType="VARCHAR" property="intime" />
+    <result column="OPER" jdbcType="VARCHAR" property="oper" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="CHECKDATE1" jdbcType="VARCHAR" property="checkdate1" />
+    <result column="CHECKTIME1" jdbcType="VARCHAR" property="checktime1" />
+    <result column="CHECKER1" jdbcType="VARCHAR" property="checker1" />
+    <result column="CHECKDATE2" jdbcType="VARCHAR" property="checkdate2" />
+    <result column="CHECKTIME2" jdbcType="VARCHAR" property="checktime2" />
+    <result column="CHECKER2" jdbcType="VARCHAR" property="checker2" />
+    <result column="BATCHNO" jdbcType="VARCHAR" property="batchno" />
+    <result column="BATCHSEQ" jdbcType="VARCHAR" property="batchseq" />
+    <result column="RETDATE" jdbcType="VARCHAR" property="retdate" />
+    <result column="RETTIME" jdbcType="VARCHAR" property="rettime" />
+    <result column="RETCODE" jdbcType="VARCHAR" property="retcode" />
+    <result column="RETMSG" jdbcType="VARCHAR" property="retmsg" />
+    <result column="OUTCHANNEL" jdbcType="VARCHAR" property="outchannel" />
+    <result column="MAC" jdbcType="VARCHAR" property="mac" />
+  </resultMap>
+  
+  
+  <sql id="condition_where">
+        where 1=1
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+        <if test="name != null and name != ''">
+            and name = #{name, jdbcType=VARCHAR}
+        </if>
+        <if test="batchno != null and batchno != ''">
+            and batchno = #{batchno, jdbcType=VARCHAR}
+        </if>
+        <if test="inchannel != null and inchannel != ''">
+            and inchannel = #{inchannel, jdbcType=VARCHAR}
+        </if>
+        <if test="outchannel != null and outchannel != ''">
+            and outchannel = #{outchannel, jdbcType=VARCHAR}
+        </if>
+        <if test="account != null and account != ''">
+            and account = #{account, jdbcType=VARCHAR}
+        </if>
+        <if test="tradedelay != null and tradedelay != ''">
+            and tradedelay = #{tradedelay, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null and startDate != ''">
+            and origdate &gt;= #{startDate, jdbcType=VARCHAR}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ and origdate <= #{endDate, jdbcType=VARCHAR} ]]>
+        </if>
+        <if test="amount != null and amount != ''">
+            and amount = #{amount, jdbcType=VARCHAR}
+        </if>
+        <if test="startId != null and startId != ''">
+            and id &gt;= #{startId, jdbcType=VARCHAR}
+        </if>
+        <if test="endId != null and endId != ''">
+            <![CDATA[ and id <= #{endId, jdbcType=VARCHAR} ]]>
+        </if>
+    </sql>
+  
+    <select id="selectByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        *
+        from rhdf_list r
+        <include refid="condition_where" />
+        order by id
+    </select>
+    
+    <select id="selectTotalCountByCondition" parameterType="java.util.Map" resultType="int">
+        select
+        count(*)
+        from rhdf_list r
+        <include refid="condition_where" />
+    </select>
+    
+    <select id="selectTotalAmountByCondition" parameterType="java.util.Map" resultType="long">
+        select
+        sum(amount)
+        from rhdf_list r
+        <include refid="condition_where" />
+    </select>
+    
+    <select id="selectAllIdByCondition" parameterType="java.util.Map" resultType="string">
+        select id from rhdf_list
+        <include refid="condition_where" />
+    </select>
+    
+</mapper>

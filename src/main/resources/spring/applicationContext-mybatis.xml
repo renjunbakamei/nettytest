@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd"
+	default-autowire="byName">
+
+	<import resource="applicationContext-persistence.xml"></import>
+
+	<!-- 权限模块数据库配置 -->
+	<bean id="SqlSessionFactoryRead" parent="parentSqlSessionFactory">
+		<property name="dataSource" ref="dataSourceRead" />
+		<property name="mapperLocations" value="classpath:sqlmap/read/**/*.xml" />
+	</bean>
+	
+	<bean id="SqlSessionRead" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="SqlSessionFactoryRead" />
+	</bean>
+
+	<!-- ======================================================================== -->
+	<!-- DAO -->
+	<!-- ======================================================================== -->
+	<bean id="MapperScannerRead" parent="parentMapperScanner">
+		<property name="sqlSessionFactory" ref="SqlSessionFactoryRead" />
+		<property name="basePackage" value="com.jfpay.dao.read" />
+	</bean>
+	
+	
+	<!-- 权限模块数据库配置 -->
+    <bean id="SqlSessionFactoryWrite" parent="parentSqlSessionFactory">
+        <property name="dataSource" ref="dataSourceWrite" />
+        <property name="mapperLocations" value="classpath:sqlmap/write/**/*.xml" />
+    </bean>
+    
+    <bean id="SqlSessionWrite" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="SqlSessionFactoryWrite" />
+    </bean>
+
+    <!-- ======================================================================== -->
+    <!-- DAO -->
+    <!-- ======================================================================== -->
+    <bean id="MapperScannerWrite" parent="parentMapperScanner">
+        <property name="sqlSessionFactory" ref="SqlSessionFactoryWrite" />
+        <property name="basePackage" value="com.jfpay.dao.write" />
+    </bean>
+
+</beans>

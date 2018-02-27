@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	    http://www.springframework.org/schema/data/mongo
+	    http://www.springframework.org/schema/data/mongo/spring-mongo-1.10.xsd"
+       default-autowire="byName">
+
+    <!-- 导入属性配置文件 -->
+    <bean id="mongoBaseDao" class="com.jfpay.base.mongo.dao.impl.MongoBaseDaoImpl">
+        <property name="mongoTemplate" ref="mongoTemplate"></property>
+    </bean>
+
+    <!--存入的方法列表-->
+    <!--key代表外部系统传入的REQ_TYPE,访问类型-->
+    <!--value-ref代表对应到内部的方法名的bean的名称-->
+    <!--<mongo:mongo host="${datasource.host}" port="${datasource.port}" replica-set="${datasource.replicaset}">
+        <mongo:options connections-per-host="200"
+                       threads-allowed-to-block-for-connection-multiplier="12000"
+                       auto-connect-retry="true"
+                       connect-timeout="120000"
+                       slave-ok="true"
+                       write-number="1"
+                       write-timeout="0"
+                       write-fsync="true"/>
+    </mongo:mongo>-->
+
+    <mongo:mongo-client id="mongo" replica-set="${datasource.replicaset}">
+        <mongo:client-options write-concern="SAFE"
+                              threads-allowed-to-block-for-connection-multiplier="12000"
+                              connections-per-host="200"
+                              connect-timeout="120000"
+                              read-preference="primaryPreferred"/>
+    </mongo:mongo-client>
+
+    <!-- mongo的工厂，通过它来取得mongo实例,dbname为mongodb的数据库名，没有的话会自动创建 -->
+    <mongo:db-factory dbname="${datasource.dbname}" mongo-ref="mongo"/>
+
+    <!-- mongodb的主要操作对象，所有对mongodb的增删改查的操作都是通过它完成 -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+    </bean>
+
+</beans>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+       default-autowire="byName">
+
+    <import resource="applicationContext-method.xml"/>
+
+    <!--存入的方法列表-->
+    <!--key代表外部系统传入的REQ_TYPE,访问类型-->
+    <!--value-ref代表对应到内部的方法名的bean的名称-->
+
+
+    <bean id="methodMop" class="com.jfpay.core.setting.MethodMap">
+        <property name="methodMap">
+            <map>
+                <entry key="testMethod" value-ref="testMethod"/>
+                <entry key="testMethodrhdf" value-ref="testMethodrhdf"/>
+                <entry key="operatorListBymobileNo" value-ref="operatorListBymobileNo"/>
+                <entry key="findPersonalInfoDetail" value-ref="findPersonalInfoDetail"></entry>
+                <entry key="findCountPserson" value-ref="findCountPserson"></entry>
+                <entry key="testMongo" value-ref="testMongo"/>
+                <entry key="findLinkThresholds" value-ref="findLinkThresholds"/>
+                <entry key="updateByIdLinkThreshold" value-ref="updateByIdLinkThreshold"/>
+                <entry key="findLinkPersonExam" value-ref="findLinkPersonExam"></entry>
+                <entry key="findLinkBlackCompareListByObj" value-ref="findLinkBlackCompareListByObj"></entry>
+                <entry key="findLinkThresholdByObj" value-ref="findLinkThresholdByObj"></entry>
+                <entry key="findPoliceInfoListByCid" value-ref="findPoliceInfoListByCid"></entry>
+                <entry key="findOperatorList" value-ref="findOperatorList"></entry>
+                <entry key="findListByObj" value-ref="findListByObj"/>
+                <entry key="findLinkPersonExams" value-ref="findLinkPersonExams"></entry>
+                <entry key="findLinkPersonExamDetail" value-ref="findLinkPersonExamDetail"></entry>
+                <entry key="addLinkPersonExam" value-ref="addLinkPersonExam"></entry>
+                <entry key="findLinkPersonExamByObj" value-ref="findLinkPersonExamByObj"></entry>
+                <entry key="updateByIdLinkPersonExam" value-ref="updateByIdLinkPersonExam"></entry>
+                <entry key="findLinkBlacklistPersons" value-ref="findLinkBlacklistPersons"></entry>
+                <entry key="findLinkBlacklistPersonDetail" value-ref="findLinkBlacklistPersonDetail"></entry>
+                <entry key="deleteLinkBlacklistPerson" value-ref="deleteLinkBlacklistPerson"></entry>
+                <entry key="updateByIdLinkBlacklistPerson" value-ref="updateByIdLinkBlacklistPerson"></entry>
+                <entry key="findBlackListByObj" value-ref="findBlackListByObj"></entry>
+                <entry key="addBlacklistPerson" value-ref="addBlacklistPerson"></entry>
+                <entry key="addBlacklistPic" value-ref="addBlacklistPic"></entry> 
+                <entry key="findByPKId" value-ref="findByPKId"></entry> 
+                <entry key="updateBlacklistPic" value-ref="updateBlacklistPic"></entry>
+                <entry key="getBlacklistPicById" value-ref="getBlacklistPicById"></entry>
+                <entry key="findLinkBlacklistPics" value-ref="findLinkBlacklistPics"></entry>
+                <entry key="findLinkBlacklistPicDetail" value-ref="findLinkBlacklistPicDetail"></entry>
+                <entry key="deleteLinkBlacklistPic" value-ref="deleteLinkBlacklistPic"></entry>
+                <entry key="getBlacklistPicByObj" value-ref="getBlacklistPicByObj"></entry>
+                <entry key="findOperatorStatus" value-ref="findOperatorStatus"></entry>
+				<entry key="updateUserStatus" value-ref="updateUserStatus"></entry>
+				<entry key="findPersonalInfoAuditJobTotal" value-ref="findPersonalInfoAuditJobTotal"></entry>
+				<entry key="findCustomerLevel" value-ref="findCustomerLevel"></entry>
+                <entry key="personalInfoAuditJobLogList" value-ref="personalInfoAuditJobLogList"></entry>
+                <entry key="getRejectinfoListByObj" value-ref="getRejectinfoListByObj"></entry>
+                <entry key="findLogPersonalInfoDetail" value-ref="findLogPersonalInfoDetail"></entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>
